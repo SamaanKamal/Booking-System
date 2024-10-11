@@ -50,7 +50,6 @@ namespace Booking_System.Services.ResourceService
                 throw new KeyNotFoundException("Resource not found.");
             }
 
-            // Update properties
             existingResource.Name = resourceRequest.Name;
             existingResource.TotalQuantity = resourceRequest.TotalQuantity;
 
