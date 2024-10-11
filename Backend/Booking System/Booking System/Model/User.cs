@@ -1,6 +1,15 @@
-﻿namespace Booking_System.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Booking_System.Model
 {
     public class User
     {
+        [Key]
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+
     }
 }
