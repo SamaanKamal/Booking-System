@@ -13,21 +13,25 @@ const Booking = (props) => {
   const handleBooking = async () => {
     const bookingData = {
       resourceId: resource.id,
-      dateFrom,
-      dateTo,
-      quantity,
+      StartDate: dateFrom, 
+      EndDate: dateTo, 
+      Quantity: quantity,
     };
 
+    console.log("Booking data:", bookingData);
     setIsLoading(true);
     setMessage("");
     try {
+      console.log(dateFrom);
+      console.log(dateTo);
+      console.log(quantity);
       const result = await bookResource(bookingData);
-      setMessage(`Booking successful! ID: ${result.id}`); 
-      props.onClose(); 
+      setMessage(`Booking successful! ID: ${result.id}`);
+      props.onClose();
     } catch (error) {
-      setMessage(`Error: ${error.message}`); 
+      setMessage(`Error: ${error.message}`);
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
   return (
