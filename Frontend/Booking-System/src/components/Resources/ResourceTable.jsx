@@ -20,7 +20,7 @@ const ResourceTable = (props) => {
           <tr key={resource.id}>
             <td>{resource.id}</td>
             <td>{resource.name}</td>
-            <td>{resource.quantity}</td>
+            <td>{resource.totalQuantity}</td>
             <td>
               <button onClick={() => onBookingClick(resource)}>
                 Book here
