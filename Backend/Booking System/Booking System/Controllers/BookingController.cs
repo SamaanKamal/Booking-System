@@ -27,7 +27,7 @@ namespace Booking_System.Controllers
             try
             {
                 Booking bookingResponse = await _bookingService.CreateBookingAsync(bookingDto);
-                return Ok(new MessageResponse { Message = "Booking created successfully." });
+                return Ok(new { Message = "Booking created successfully." });
             }
             catch (InvalidOperationException ex)
             {
