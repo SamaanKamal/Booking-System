@@ -1,4 +1,5 @@
 import React from "react";
+import classes from "./ResourceTable.module.css";
 
 const ResourceTable = (props) => {
   const resources = props.resources;
@@ -6,7 +7,7 @@ const ResourceTable = (props) => {
     props.onBookingClick(resource);
   };
   return (
-    <table>
+    <table className={classes.tableContainer}>
       <thead>
         <tr>
           <th>Id</th>
