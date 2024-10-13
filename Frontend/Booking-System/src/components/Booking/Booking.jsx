@@ -39,13 +39,9 @@ const Booking = (props) => {
       return;
     }
 
-    console.log("Booking data:", bookingData);
     setIsLoading(true);
     setMessage(null);
     try {
-      console.log(dateFrom);
-      console.log(dateTo);
-      console.log(quantity);
       const result = await bookResource(bookingData);
       console.log(result);
       setMessage({
