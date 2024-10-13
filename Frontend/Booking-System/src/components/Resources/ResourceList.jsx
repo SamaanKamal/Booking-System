@@ -3,6 +3,7 @@ import { FetchResources } from "../../services/FetchResources";
 import ResourceTable from "./ResourceTable";
 import Booking from "../Booking/Booking";
 import LoadingSpinner from "../../shared/loading-spinner";
+import classes from './ResourceList.module.css';
 
 const ResourceList = (props) => {
   const [resources, setResources] = useState([]);
@@ -32,7 +33,7 @@ const ResourceList = (props) => {
     setSelectedResource(null);
   };
   return (
-    <div>
+    <div className={classes.resourceListContainer}>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
