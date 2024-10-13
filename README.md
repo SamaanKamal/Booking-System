@@ -27,8 +27,25 @@ Follow these steps to set up and run the application.
 ```bash
 git clone https://github.com/SamaanKamal/Booking-System.git
 cd Booking-System
+```
 
+### For Backend:
+### 1. Navigate to the Backend Directory
+Change to the directory where the backend code is located:
+
+```bash
 cd Backend
 cd Booking System
 cd Booking Sysetm
-dotnet restore 
+```
+### 2. Restore NuGet Packages
+
+```bash
+dotnet restore
+```
+### 3.Apply Database Migrations
+
+```bash
+dotnet ef database update
+```
+
