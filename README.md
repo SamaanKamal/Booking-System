@@ -27,3 +27,8 @@ Follow these steps to set up and run the application.
 ```bash
 git clone https://github.com/SamaanKamal/Booking-System.git
 cd Booking-System
+
+cd Backend
+cd Booking System
+cd Booking Sysetm
+dotnet restore 
