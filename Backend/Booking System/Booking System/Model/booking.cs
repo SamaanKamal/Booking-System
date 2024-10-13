@@ -6,7 +6,7 @@ namespace Booking_System.Model
     {
         [Key]
         public int Id { get; set; }
-        public int ResouceId { get; set; }
+        public int ResourceId { get; set; }
         public int Quantity { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
