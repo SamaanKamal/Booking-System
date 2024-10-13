@@ -18,12 +18,6 @@ const Booking = (props) => {
   };
 
   const handleBooking = async () => {
-    const bookingData = {
-      resourceId: resource.id,
-      startDate: new Date(dateFrom).toISOString(),
-      endDate: new Date(dateTo).toISOString(),
-      Quantity: quantity,
-    };
     if (!dateFrom || !dateTo) {
       setMessage({
         title: "Input Error",
@@ -38,6 +32,12 @@ const Booking = (props) => {
       });
       return;
     }
+    const bookingData = {
+      resourceId: resource.id,
+      startDate: new Date(dateFrom).toISOString(),
+      endDate: new Date(dateTo).toISOString(),
+      Quantity: quantity,
+    };
 
     setIsLoading(true);
     setMessage(null);
