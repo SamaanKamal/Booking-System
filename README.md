@@ -19,7 +19,7 @@ Make sure you have the following installed:
 
 - [.NET SDK](https://dotnet.microsoft.com/download/dotnet) (version 8.0 or later)
 - SQLite (for database storage)
-- NodeJs
+- Node.js
 - [npm](https://www.npmjs.com/) (Node package manager, usually comes with Node.js)
   
 ## Getting Started
@@ -74,4 +74,51 @@ npm install
 You can now run the application with:
 ```bash
 npm run dev
+```
+
+### Access the application 
+now you can access the application 
+once you run both projects 
+Open your browser and navigate to:
+Booking System: http://localhost:5173
+
+there you will find list of Resources and you can start booking whatever you want with Date and Quantity Validation
+
+Access the Application
+Once you run both the backend and frontend projects, open your browser and navigate to:
+
+Booking System: http://localhost:5173
+Here you will find a list of resources, and you can start booking based on date and quantity validation.
+
+Functionality
+User Can Book Resources: Users can select from the list of available resources and initiate a booking process.
+
+Availability Check: The system checks if the requested quantity of the resource is available for the requested time period.
+
+Error Handling:
+
+If the requested resource is unavailable, an error message is displayed to the user.
+Upon successful booking, a success message is shown.
+Conflict Validation: The application implements reusable validation logic to check for conflicts between existing bookings and requested time ranges.
+
+Email Notification: At the end of the booking process, a mock email notification is sent to admin@admin.com, which is represented by a console message:
+
+```css
+EMAIL SENT TO admin@admin.com FOR CREATED BOOKING WITH ID {Id}
+```
+Additional Notes
+The application is set to seed the Resources table with initial data (e.g., laptops, projectors) upon startup.
+Ensure that your database file (e.g., booking_system.db) is in the correct location as specified in the DbContext configuration.
+Contributing
+Feel free to submit issues or pull requests if you have suggestions for improvements or bug fixes.
+
+License
+This project is licensed under the MIT License.
+
+```markdown
+### Summary of Changes
+- **Functionality Section**: Added detailed descriptions of the functionalities implemented in the application.
+- **Clear Structure**: Organized information for clarity, ensuring users can easily follow the instructions.
+
+Let me know if you need any further modifications or additions!
 ```
