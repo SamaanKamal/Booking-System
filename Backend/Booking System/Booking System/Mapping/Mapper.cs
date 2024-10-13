@@ -8,7 +8,13 @@ namespace Booking_System.Mapping
     {
         public Mapper() {
             CreateMap<Resource, ResourceRequestDTO>().ReverseMap();
-            CreateMap<Booking, BookingRequestDTO>().ReverseMap();
+            CreateMap<BookingRequestDTO, Booking>()
+                .ForMember(dest => dest.StartTime, opt => opt.MapFrom(src => DateTime.Parse(src.StartDate)))
+                .ForMember(dest => dest.EndTime, opt => opt.MapFrom(src => DateTime.Parse(src.EndDate)));
+
+            CreateMap<Booking, BookingRequestDTO>()
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartTime.ToString("yyyy-MM-ddTHH:mm:ss")))
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndTime.ToString("yyyy-MM-ddTHH:mm:ss")));
         }
     }
 }
