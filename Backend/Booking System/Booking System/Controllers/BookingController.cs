@@ -20,14 +20,14 @@ namespace Booking_System.Controllers
         [HttpPost]
         public async Task<IActionResult> BookResource([FromBody] BookingRequestDTO bookingDto)
         {
-            if (bookingDto == null)
+            if (bookingDto == null||bookingDto.StartDate==null||bookingDto.EndDate==null||bookingDto.Quantity==null)
             {
                 return BadRequest(new { Message = "Booking request cannot be null." });
             }
             try
             {
                 Booking bookingResponse = await _bookingService.CreateBookingAsync(bookingDto);
-                return Ok(new { Message = "Booking created successfully." });
+                return Ok(new { Message = "Booking created successfully.", BookingId = bookingResponse.Id });
             }
             catch (InvalidOperationException ex)
             {
