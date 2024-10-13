@@ -19,9 +19,10 @@ namespace Booking_System.Services.BookingService
         }
         public async Task<Booking> CreateBookingAsync(BookingRequestDTO bookingRequest)
         {
-            if(!await IsBookingAvailableAsync(bookingRequest))
+            var (isAvailable, message) = await IsBookingAvailableAsync(bookingRequest);
+            if (!isAvailable)
             {
-                throw new InvalidOperationException("Resource is not available for the requested period and quantity.");
+                throw new InvalidOperationException(message);
             }
             Booking booking = _mapper.Map<Booking>(bookingRequest);
             Booking createdBooking = await _bookingRepository.AddBookingAsync(booking);
@@ -31,14 +32,40 @@ namespace Booking_System.Services.BookingService
             }
             return createdBooking;
         }
-        public async Task<bool> IsBookingAvailableAsync(BookingRequestDTO bookingRequest)
+        public async Task<(bool IsAvailable, string Message)> IsBookingAvailableAsync(BookingRequestDTO bookingRequest)
         {
             DateTime parsedStartDate = DateTime.Parse(bookingRequest.StartDate);
             DateTime parsedEndDate = DateTime.Parse(bookingRequest.EndDate);
             IEnumerable<Booking> bookings = await _bookingRepository.GetBookingsByResourceAndDateRangeAsync(bookingRequest.ResourceId, parsedStartDate, parsedEndDate);
+            Console.WriteLine($"Number of bookings found: {bookings.Count()}");
+
+            Console.WriteLine($"Number of bookings found: {bookings.Count()}");
+
+            if (bookings.Any())
+            {
+                foreach (var booking in bookings)
+                {
+                    if ((parsedStartDate < booking.EndTime && parsedEndDate > booking.StartTime) ||
+                        (parsedStartDate == booking.StartTime || parsedEndDate == booking.EndTime))
+                    {
+                        string message = $"Booking time conflicts with existing booking ID {booking.Id}.";
+                        Console.WriteLine(message);
+                        return (false, message); 
+                    }
+                }
+            }
+
             int totalBookedQuantity = bookings.Sum(booking => booking.Quantity);
             Resource resource = await _resourceRepository.GetResourceAsync(bookingRequest.ResourceId);
-            return resource != null && (resource.TotalQuantity - totalBookedQuantity) >= bookingRequest.Quantity;
+
+            if (resource != null && (resource.TotalQuantity - totalBookedQuantity) < bookingRequest.Quantity)
+            {
+                string message = $"Requested quantity {bookingRequest.Quantity} exceeds available quantity.";
+                Console.WriteLine(message);
+                return (false, message); 
+            }
+
+            return (true, "Booking can proceed."); 
         }
         private void SendEmail(int bookingId)
         {

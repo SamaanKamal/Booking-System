@@ -5,7 +5,7 @@ namespace Booking_System.Services.BookingService
 {
     public interface IBookingService
     {
-        Task<bool> IsBookingAvailableAsync(BookingRequestDTO bookingRequest);
+        Task<(bool IsAvailable, string Message)> IsBookingAvailableAsync(BookingRequestDTO bookingRequest);
         Task<Booking> CreateBookingAsync(BookingRequestDTO bookingRequest);
     }
 }
