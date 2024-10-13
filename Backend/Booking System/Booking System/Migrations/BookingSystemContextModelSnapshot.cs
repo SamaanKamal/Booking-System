@@ -58,6 +58,26 @@ namespace Booking_System.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Resources");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Laptop",
+                            TotalQuantity = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Projector",
+                            TotalQuantity = 5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Conference Room",
+                            TotalQuantity = 3
+                        });
                 });
 
             modelBuilder.Entity("Booking_System.Model.User", b =>
