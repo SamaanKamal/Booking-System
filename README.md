@@ -78,12 +78,6 @@ npm run dev
 
 ### Access the application 
 now you can access the application 
-once you run both projects 
-Open your browser and navigate to:
-Booking System: http://localhost:5173
-
-there you will find list of Resources and you can start booking whatever you want with Date and Quantity Validation
-
 Access the Application
 Once you run both the backend and frontend projects, open your browser and navigate to:
 
