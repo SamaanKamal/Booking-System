@@ -20,7 +20,7 @@ namespace Booking_System.Repositories.BookingRepository
 
         public async Task<IEnumerable<Booking>> GetBookingsByResourceAndDateRangeAsync(int resourceId, DateTime startDate, DateTime endDate)
         {
-            return await _context.Bookings.Where(booking => booking.ResouceId == resourceId && booking.StartTime < endDate && booking.EndTime > startDate).ToListAsync();
+            return await _context.Bookings.Where(booking => booking.ResourceId == resourceId&& (booking.StartTime < endDate &&booking.EndTime > startDate)).ToListAsync();
         }
     }
 }
