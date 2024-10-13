@@ -1,45 +1,69 @@
 import React, { useState } from "react";
 import { bookResource } from "../../services/BookResource";
 import LoadingSpinner from "../../shared/loading-spinner";
+import classes from "./Booking.module.css";
+import MessageModal from "./MessageModal";
 
 const Booking = (props) => {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const resource = props.resource;
+  const handleCloseMessage = () => {
+    setMessage(null);
+    // props.onClose();
+  };
 
   const handleBooking = async () => {
     const bookingData = {
       resourceId: resource.id,
-      StartDate: dateFrom,
-      EndDate: dateTo,
+      startDate: new Date(dateFrom).toISOString(),
+      endDate: new Date(dateTo).toISOString(),
       Quantity: quantity,
     };
+    if (!dateFrom || !dateTo) {
+      setMessage({
+        title: "Input Error",
+        content: "Please fill in both date fields.",
+      });
+      return;
+    }
+    if (new Date(dateFrom) >= new Date(dateTo)) {
+      setMessage({
+        title: "Input Error",
+        content: "Date From must be before Date To.",
+      });
+      return;
+    }
 
     console.log("Booking data:", bookingData);
     setIsLoading(true);
-    setMessage("");
+    setMessage(null);
     try {
       console.log(dateFrom);
       console.log(dateTo);
       console.log(quantity);
       const result = await bookResource(bookingData);
-      setMessage(`Booking successful! ID: ${result.id}`);
+      console.log(result);
+      setMessage({
+        title: "Success!",
+        content: `Booking successful! ID: ${result.bookingId}`,
+      });
       setIsLoading(false);
-      props.onClose();
+      // props.onClose();
     } catch (error) {
-      setMessage(`Error: ${error.message}`);
+      setMessage({ title: "Error!", content: `Error: ${error.message}` });
     } finally {
       setIsLoading(false);
     }
   };
   return (
-    <div className="dialog">
+    <div className={classes.dialog}>
       <h2>Booking {resource.name}</h2>
-      {isLoading ? ( 
+      {isLoading ? (
         <LoadingSpinner />
       ) : (
         <>
@@ -65,7 +89,9 @@ const Booking = (props) => {
           />
           <button onClick={handleBooking}>Book</button>
           <button onClick={props.onClose}>Cancel</button>
-          {message && <p>{message}</p>}
+          {message && (
+            <MessageModal message={message} onClose={handleCloseMessage} />
+          )}
         </>
       )}
     </div>
